@@ -1,0 +1,14 @@
+class Solution {
+    public int helper(int i, int j, List<List<Integer>> tri){
+        int n = tri.size();
+        if(i == n-1){
+            return tri.get(n-1).get(j);
+        }
+        int down = helper(i+1,j,tri) + tri.get(i).get(j);
+        int dia = helper(i+1,j+1,tri) + tri.get(i).get(j);
+        return Math.min(down,dia);
+    }
+    public int minimumTotal(List<List<Integer>> triangle) {
+        return helper(0,0,triangle);
+    }
+}
