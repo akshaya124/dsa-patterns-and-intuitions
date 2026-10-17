@@ -1,0 +1,47 @@
+
+class Solution {
+    int dp[][];
+
+    public int helper(int n, int m, int[][] mat) {
+        for (int j = 0; j < m; j++) {
+            dp[0][j] = mat[0][j];
+        }
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int up = mat[i][j] + dp[i - 1][j];
+
+                int upLeft = (int) 1e9;
+                int upRight = (int) 1e9;
+
+                if (j - 1 >= 0) {
+                    upLeft = mat[i][j] + dp[i - 1][j - 1];
+                }
+
+                if (j + 1 < m) {
+                    upRight = mat[i][j] + dp[i - 1][j + 1];
+                }
+
+                dp[i][j] = Math.min(up,
+                            Math.min(upLeft, upRight));
+            }
+        }
+
+        int minSum = Integer.MAX_VALUE;
+
+        for (int j = 0; j < m; j++) {
+            minSum = Math.min(minSum, dp[n - 1][j]);
+        }
+
+        return minSum;
+    }
+
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+
+        dp = new int[n][m];
+
+        return helper(n, m, matrix);
+    }
+}
