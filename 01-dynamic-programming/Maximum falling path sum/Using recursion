@@ -1,0 +1,21 @@
+class Solution {
+    public int helper(int i, int j, int[][] mat){
+        if(j<0 || j>=mat[0].length){
+            return (int)1e9;
+        }
+        if(i == 0) return mat[0][j];
+        int d = mat[i][j]+helper(i-1,j-1,mat);
+        int dia1 = mat[i][j] + helper(i-1,j,mat);
+        int dia2 = mat[i][j]+helper(i-1,j+1,mat);
+        return Math.min(d,Math.min(dia1,dia2));
+    }
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int m =matrix[0].length;
+        int minsum = Integer.MAX_VALUE;
+        for(int j = 0;j<m;j++){ 
+        minsum = Math.min(minsum, helper(n-1,j,matrix));
+    }
+return minsum;
+}
+}
