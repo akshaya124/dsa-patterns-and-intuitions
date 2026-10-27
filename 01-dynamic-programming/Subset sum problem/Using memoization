@@ -1,0 +1,30 @@
+class Solution {
+    static int dp[][];
+    static boolean helper(int idx, int sum, int arr[]){
+        if(sum == 0){
+            return true;
+        }
+        if(idx == 0){
+            return (arr[0] == sum);
+        }
+        if(dp[idx][sum] != -1){
+            return dp[idx][sum] == 1;
+        }
+        boolean nottake = helper(idx-1,sum,arr);
+        boolean take = false;
+        if(sum>=arr[idx]){
+            take = helper(idx-1,sum - arr[idx],arr);
+        }
+         dp[idx][sum] = (take | nottake)?1:0;
+         return take | nottake;
+    }
+    static boolean isSubsetSum(int arr[], int sum) {
+        // code here
+        int n = arr.length;
+        dp = new int[n][sum+1];
+        for(int row[]: dp){
+            Arrays.fill(row,-1);
+        }
+        return helper(n-1,sum,arr);
+    }
+}
