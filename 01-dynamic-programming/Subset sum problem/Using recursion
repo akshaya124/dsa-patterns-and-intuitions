@@ -1,0 +1,21 @@
+class Solution {
+    static boolean helper(int idx, int sum, int arr[]){
+        if(sum == 0){
+            return true;
+        }
+        if(idx == 0){
+            return (arr[0] == sum);
+        }
+        boolean nottake = helper(idx-1,sum,arr);
+        boolean take = false;
+        if(sum>=arr[idx]){
+            take = helper(idx-1,sum - arr[idx],arr);
+        }
+        return take | nottake;
+    }
+    static boolean isSubsetSum(int arr[], int sum) {
+        // code here
+        int n = arr.length;
+        return helper(n-1,sum,arr);
+    }
+}
