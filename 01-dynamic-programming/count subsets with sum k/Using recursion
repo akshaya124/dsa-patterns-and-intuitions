@@ -1,0 +1,18 @@
+class Solution {
+    static int helper(int idx, int target, int[] arr){
+        if(idx<0){
+            return (target == 0)?1:0;
+        }
+        int nottpick = helper(idx-1,target,arr);
+        int pick = 0;
+        if(target>=arr[idx]){
+            pick = helper(idx-1,target-arr[idx],arr);
+        }
+        return pick + nottpick;
+    }
+    static int perfectSum(int[] arr, int target) {
+        // code here
+        int n = arr.length;
+        return helper(n-1,target,arr);
+    }
+}
