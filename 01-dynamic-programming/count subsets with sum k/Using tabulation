@@ -1,0 +1,30 @@
+class Solution {
+    static int helper(int n,int target, int[] arr,int[][] dp){
+       if(arr[0] == 0){
+           dp[0][0] = 2;
+       }else{
+           dp[0][0] = 1;
+       }
+       if(arr[0] != 0 && arr[0]<=target){
+           dp[0][arr[0]] = 1;
+       }
+        for(int i = 1;i<n;i++){ 
+            for(int j = 0;j<=target;j++){
+        int nottpick = dp[i-1][j];
+        int pick = 0;
+        if(j>=arr[i]){
+            pick = dp[i-1][j-arr[i]];
+        }
+         dp[i][j] = pick + nottpick;
+    }
+    }
+    return dp[n-1][target];
+}
+    static int perfectSum(int[] arr, int target) {
+        // code here
+        int n = arr.length;
+        int dp[][] = new int[n][target+1];
+       
+        return helper(n,target,arr,dp);
+    }
+}  
